@@ -1,21 +1,21 @@
 <template>
-  <div class="test-viewport">测试转换</div>
+  <HeadBar />
+  <router-view />
+  <FootBar />
 </template>
 
 <script>
+import HeadBar from "@/components/HeadBar.vue";
+import FootBar from "@/components/FootBar.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    HeadBar,
+    FootBar,
+  },
 };
 </script>
 
-<style>
-.test-viewport {
-  width: 750px;
-  height: 100px;
-  font-size: 40px;
-  text-align: center;
-  line-height: 100px;
-  background: #13b5b1;
-}
+<style lang="scss">
 </style>
