@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <img src="" alt="" />
+    <img :src="props.data.imgSrc" alt="" />
     <div class="inner-container">
       <h1 style="margin-bottom: 3vh">{{ props.data.title }}</h1>
       <div style="margin-bottom: 2vh">
@@ -17,7 +17,7 @@
       <ButtonCommon
         class="button"
         @btn-click="routeTo()"
-        :name="'活動詳情'"
+        :name="props.btnName"
         :width="'143px'"
       />
     </div>
@@ -34,12 +34,17 @@ export default {
     data: {
       type: Object,
       default: () => ({
+        imgSrc: "@/assets/icon/default-picture.svg",
         title: "",
         startTime: "",
         endTime: "",
         location: "",
         description: "",
       }),
+    },
+    btnName: {
+      type: String,
+      default: "活動詳情",
     },
   },
   setup(props) {
