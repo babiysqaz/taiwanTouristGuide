@@ -8,7 +8,7 @@
 export default {};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 footer {
   height: 13.125vh;
   background-color: black;
