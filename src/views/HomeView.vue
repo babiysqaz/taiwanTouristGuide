@@ -10,7 +10,14 @@
       <div class="img-title">
         <img src="@/assets/image/lantern.png" alt="" />熱門活動
       </div>
-      <CardDetail />
+      <div class="card-detail-container">
+        <CardDetail
+          v-for="item in activity"
+          :key="item"
+          :data="item"
+          :btnName="'了解更多'"
+        />
+      </div>
       <div class="arrow-container">
         <span>More</span>
         <img src="@/assets/icon/arrow-right.svg" alt="" />
@@ -21,7 +28,7 @@
       <div class="img-title">
         <img src="@/assets/image/tower.svg" alt="" />熱門景點
       </div>
-      <CardSwiper />
+      <CardSwiper v-for="item in scenicSpot" :key="item" :data="item" />
       <div class="arrow-container">
         <span>More</span>
         <img src="@/assets/icon/arrow-right.svg" alt="" />
@@ -32,7 +39,7 @@
       <div class="img-title">
         <img src="@/assets/image/peral-milk-tea.svg" alt="" />推薦美食
       </div>
-      <CardSwiper />
+      <CardSwiper v-for="item in restaurant" :key="item" :data="item" />
       <div class="arrow-container">
         <span>More</span>
         <img src="@/assets/icon/arrow-right.svg" alt="" />
@@ -44,10 +51,70 @@
 <script>
 import CardDetail from "@/components/CardDetail.vue";
 import CardSwiper from "@/components/CardSwiper.vue";
+import moment from "moment";
+
+import {
+  getActivityByCity,
+  getScenicSpotByCity,
+  getRestaurantByCity,
+} from "@/api/index.js";
+import { onMounted, ref } from "vue";
 export default {
   components: {
     CardDetail,
     CardSwiper,
+  },
+  setup() {
+    const activity = ref({});
+    const scenicSpot = ref({});
+    const restaurant = ref({});
+
+    async function init() {
+      activity.value = await getActivityByCity();
+      // console.log("activity", activity.value.data);
+      activity.value = activity.value.data
+        .map((item) => ({
+          imgSrc: item.Picture.PictureUrl1,
+          title: item.ActivityName,
+          startTime: moment(item.StartTime).format("YYYY/MM/DD"),
+          endTime: moment(item.EndTime).format("YYYY/MM/DD"),
+          location: item.Address,
+          description: item.Description,
+        }))
+        .slice(0, 4);
+
+      scenicSpot.value = await getScenicSpotByCity();
+      // console.log("scenicSpot", scenicSpot.value.data);
+      scenicSpot.value = scenicSpot.value.data
+        .map((item) => ({
+          imgSrc: item.Picture.PictureUrl1,
+          title: item.ScenicSpotName,
+          location: item.city,
+          route: item.WebsiteUrl,
+        }))
+        .slice(0, 1);
+
+      restaurant.value = await getRestaurantByCity();
+      // console.log("restaurant", restaurant.value.data);
+      restaurant.value = restaurant.value.data
+        .map((item) => ({
+          imgSrc: item.Picture.PictureUrl1,
+          title: item.RestaurantName,
+          location: item.Address,
+          route: item.WebsiteUrl,
+        }))
+        .slice(0, 1);
+    }
+
+    onMounted(() => {
+      init();
+    });
+
+    return {
+      activity,
+      scenicSpot,
+      restaurant,
+    };
   },
 };
 </script>
@@ -118,6 +185,11 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 0 38.5px;
+    .card-detail-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4.625vh;
+    }
   }
   .swiper-container {
     display: flex;

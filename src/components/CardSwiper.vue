@@ -12,14 +12,15 @@
 </template>
 
 <script>
+import defaultPicture from "../assets/icon/default-picture.svg";
 export default {
   props: {
     data: {
       type: Object,
       default: () => ({
-        imgSrc: "@/assets/icon/default-picture.svg",
-        title: "123",
-        location: "123",
+        imgSrc: defaultPicture,
+        title: "查無資料",
+        location: "查無資料",
         route: "",
       }),
     },
@@ -52,6 +53,8 @@ export default {
       font-weight: 400;
       font-size: 16px;
       text-decoration: none;
+      display: flex;
+      align-items: center;
     }
     .material-symbols-outlined {
       font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;

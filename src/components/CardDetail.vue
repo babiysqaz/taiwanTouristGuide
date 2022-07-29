@@ -4,11 +4,11 @@
     <div class="inner-container">
       <h1 style="margin-bottom: 3vh">{{ props.data.title }}</h1>
       <div style="margin-bottom: 2vh">
-        <h2>時間</h2>
+        <span class="sub-title">時間</span>
         <span>{{ props.data.startTime }}-{{ props.data.endTime }}</span>
       </div>
       <div style="margin-bottom: 2.25vh">
-        <h2>地點</h2>
+        <span class="sub-title">地點</span>
         <span>{{ props.data.location }}</span>
       </div>
       <p>
@@ -26,6 +26,7 @@
 
 <script>
 import ButtonCommon from "@/components/ButtonCommon.vue";
+import defaultPicture from "../assets/icon/default-picture.svg";
 export default {
   components: {
     ButtonCommon,
@@ -34,12 +35,12 @@ export default {
     data: {
       type: Object,
       default: () => ({
-        imgSrc: "@/assets/icon/default-picture.svg",
-        title: "",
-        startTime: "",
-        endTime: "",
-        location: "",
-        description: "",
+        imgSrc: defaultPicture,
+        title: "查無資料",
+        startTime: "查無資料",
+        endTime: "查無資料",
+        location: "查無資料",
+        description: "查無資料",
       }),
     },
     btnName: {
@@ -77,7 +78,7 @@ export default {
       font-size: 18px;
       font-weight: 700;
     }
-    h2 {
+    .sub-title {
       font-size: 16px;
       font-weight: 700;
       margin-right: 10px;
@@ -95,7 +96,7 @@ export default {
     }
     .button {
       position: absolute;
-      bottom: 2vh;
+      bottom: 2.25vh;
       right: 21px;
     }
   }
