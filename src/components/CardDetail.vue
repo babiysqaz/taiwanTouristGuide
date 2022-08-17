@@ -1,5 +1,8 @@
 <template>
-  <div class="card-container">
+  <div
+    class="card-container"
+    :class="[props.hasDescription ? '' : 'has-no-description']"
+  >
     <img :src="props.data.imgSrc" alt="" />
     <div class="inner-container">
       <h1 style="margin-bottom: 3vh">{{ props.data.title }}</h1>
@@ -41,16 +44,26 @@ export default {
         endTime: "查無資料",
         location: "查無資料",
         description: "查無資料",
+        route: "",
       }),
     },
     btnName: {
       type: String,
       default: "活動詳情",
     },
+    hasDescription: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props) {
+    console.log(props);
     const routeTo = () => {
-      console.log("尚未完成");
+      if (props.data.route) {
+        window.open(props.data.route);
+      } else {
+        console.log("沒有更多詳細資訊了");
+      }
     };
     return {
       routeTo,
@@ -62,13 +75,16 @@ export default {
 
 <style lang="scss" scoped>
 .card-container {
+  width: 313px;
   height: 70.875vh;
   display: flex;
   flex-direction: column;
   background: white;
   position: relative;
+  &.has-no-description {
+    height: 54.875vh;
+  }
   img {
-    width: 313px;
     height: 33.125vh;
     object-fit: cover;
   }

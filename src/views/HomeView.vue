@@ -80,6 +80,7 @@ export default {
           endTime: moment(item.EndTime).format("YYYY/MM/DD"),
           location: item.Address,
           description: item.Description,
+          route: item.WebsiteUrl,
         }))
         .slice(0, 4);
 

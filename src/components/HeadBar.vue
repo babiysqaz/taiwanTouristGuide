@@ -1,21 +1,33 @@
 <template>
   <header>
     <div class="navbar">
-      <img src="@/assets/icon/logo.svg" alt="" />
+      <router-link to="/">
+        <img src="@/assets/icon/logo.svg" alt="" />
+      </router-link>
       <span @click="switchMenu()" class="material-symbols-outlined">
         menu
       </span>
     </div>
     <ul v-if="expandMenu">
-      <li v-for="item in tags" :key="item">{{ item }}</li>
+      <li v-for="tag in tags" :key="tag" @click="routeTo(tag)">{{ tag }}</li>
     </ul>
   </header>
 </template>
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 export default {
   setup() {
+    const router = useRouter();
+    const routeTo = (tag) => {
+      router.push({
+        path: "/topic",
+        query: {
+          title: tag,
+        },
+      });
+    };
     const tags = ["精選活動", "全台景點", "探索美食", "住宿飯店"];
     const expandMenu = ref(false);
     const switchMenu = () => {
@@ -25,6 +37,7 @@ export default {
       tags,
       expandMenu,
       switchMenu,
+      routeTo,
     };
   },
 };

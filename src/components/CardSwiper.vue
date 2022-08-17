@@ -33,12 +33,12 @@ export default {
 
 <style lang="scss" scoped>
 .card-container {
+  width: 279px;
   height: 45.25vh;
   display: flex;
   flex-direction: column;
   background: white;
   img {
-    width: 279px;
     height: 35vh;
     object-fit: cover;
   }

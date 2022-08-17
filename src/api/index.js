@@ -39,7 +39,7 @@ function getPtxAuthorizationHeader() {
     return ({ 'Authorization': Authorization, 'X-Date': GMTString });
 }
 
-export function getActivityByCity(city = 'Taipei') {
+export function getActivityByCity(city = 'Taichung') {
     const baseUrl = "https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity/";
     const fullUrl = baseUrl + city + "?$format=JSON&$top=100";
     return axios.get(fullUrl, { headers: getPtxAuthorizationHeader(), })
@@ -47,7 +47,7 @@ export function getActivityByCity(city = 'Taipei') {
         .catch((error) => console.log(error));
 }
 
-export function getScenicSpotByCity(city = 'Taipei') {
+export function getScenicSpotByCity(city = 'Taichung') {
     const baseUrl = "https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/";
     const fullUrl = baseUrl + city + "?$format=JSON&$top=100";
     return axios.get(fullUrl, {
@@ -57,7 +57,7 @@ export function getScenicSpotByCity(city = 'Taipei') {
         .catch((error) => console.log(error));
 }
 
-export function getRestaurantByCity(city = 'Taipei') {
+export function getRestaurantByCity(city = 'Taichung') {
     const baseUrl = "https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant/";
     const fullUrl = baseUrl + city + "?$format=JSON&$top=100";
     return axios.get(fullUrl, {
