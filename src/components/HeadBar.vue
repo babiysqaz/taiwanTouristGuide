@@ -21,6 +21,7 @@ export default {
   setup() {
     const router = useRouter();
     const routeTo = (tag) => {
+      expandMenu.value = false;
       router.push({
         path: "/topic",
         query: {

@@ -3,7 +3,7 @@
     class="card-container"
     :class="[props.hasDescription ? '' : 'has-no-description']"
   >
-    <img :src="props.data.imgSrc" alt="" />
+    <img :src="props.data.imgSrc || defaultPicture" alt="" />
     <div class="inner-container">
       <h1 style="margin-bottom: 3vh">{{ props.data.title }}</h1>
       <div style="margin-bottom: 2vh">
@@ -38,7 +38,7 @@ export default {
     data: {
       type: Object,
       default: () => ({
-        imgSrc: defaultPicture,
+        imgSrc: "",
         title: "查無資料",
         startTime: "查無資料",
         endTime: "查無資料",
@@ -57,7 +57,6 @@ export default {
     },
   },
   setup(props) {
-    console.log(props);
     const routeTo = () => {
       if (props.data.route) {
         window.open(props.data.route);
@@ -68,6 +67,7 @@ export default {
     return {
       routeTo,
       props,
+      defaultPicture,
     };
   },
 };

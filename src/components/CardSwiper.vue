@@ -5,7 +5,7 @@
       <div class="title" style="margin-bottom: 2vh">{{ props.data.title }}</div>
       <a :href="props.data.route">
         <span class="material-symbols-outlined"> location_on </span>
-        {{ props.data.location }}
+        {{ props.data.location || "查無資料" }}
       </a>
     </div>
   </div>
