@@ -6,7 +6,12 @@
   <main style="padding-top: 3.75vh">
     <div class="input-conitainer">
       <img src="@/assets/icon/select.svg" alt="" />
-      <select style="margin-bottom: 4.625vh">
+      <select
+        style="margin-bottom: 4.625vh"
+        v-model="selectedCity"
+        @change="refresh(route.query.title, selectedCity)"
+      >
+        <option disabled value="">請選擇</option>
         <option v-for="city of cityNameArr" :value="city" :key="city">
           {{ city }}
         </option>
@@ -25,7 +30,7 @@
 
 <script>
 import { computed } from "@vue/runtime-core";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import bannerActivity from "../assets/image/banner-activity.png";
 import bannerFood from "../assets/image/banner-food.png";
@@ -35,6 +40,7 @@ import {
   getActivityByCity,
   getScenicSpotByCity,
   getRestaurantByCity,
+  getHotelByCity,
 } from "@/api/index.js";
 
 import CardDetail from "@/components/CardDetail.vue";
@@ -70,7 +76,9 @@ export default {
     ];
     const data = ref({});
     const route = useRoute();
+    const selectedCity = ref("");
     let imgSrc = computed(() => {
+      refresh(route.query.title);
       switch (route.query.title) {
         case "精選活動":
           return bannerActivity;
@@ -83,24 +91,22 @@ export default {
       }
     });
 
-    watch(route.query.title, refresh(route.query.title));
-
-    async function refresh(route) {
+    async function refresh(route, selectedCity2) {
       switch (route) {
         case "精選活動":
-          data.value = await getActivityByCity();
+          data.value = await getActivityByCity(selectedCity2);
           break;
         case "全台景點":
-          data.value = await getScenicSpotByCity();
+          data.value = await getScenicSpotByCity(selectedCity2);
           break;
         case "探索美食":
-          data.value = await getRestaurantByCity();
+          data.value = await getRestaurantByCity(selectedCity2);
           break;
         case "住宿飯店":
-          // data.value = await getActivityByCity();
+          data.value = await getHotelByCity(selectedCity2);
           break;
       }
-      console.log(route, data.value.data);
+      // console.log(route, data.value.data);
       data.value = data.value.data
         .map((item) => ({
           imgSrc: item.Picture.PictureUrl1,
@@ -118,6 +124,8 @@ export default {
       imgSrc,
       cityNameArr,
       data,
+      selectedCity,
+      refresh,
     };
   },
 };
@@ -160,8 +168,5 @@ main {
       border: none;
     }
   }
-  /* .card-detail-container{
-    margin
-  } */
 }
 </style>

@@ -1,9 +1,7 @@
 <template>
   <header>
     <div class="navbar">
-      <router-link to="/">
-        <img src="@/assets/icon/logo.svg" alt="" />
-      </router-link>
+      <img src="@/assets/icon/logo.svg" alt="" @click="routeTo()" />
       <span @click="switchMenu()" class="material-symbols-outlined">
         menu
       </span>
@@ -22,12 +20,18 @@ export default {
     const router = useRouter();
     const routeTo = (tag) => {
       expandMenu.value = false;
-      router.push({
-        path: "/topic",
-        query: {
-          title: tag,
-        },
-      });
+      if (tag) {
+        router.push({
+          path: "/topic",
+          query: {
+            title: tag,
+          },
+        });
+      } else {
+        router.push({
+          path: "/",
+        });
+      }
     };
     const tags = ["精選活動", "全台景點", "探索美食", "住宿飯店"];
     const expandMenu = ref(false);

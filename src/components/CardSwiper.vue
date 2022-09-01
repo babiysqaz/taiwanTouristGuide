@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <img :src="props.data.imgSrc" alt="" />
+    <img :src="props.data.imgSrc || defaultPicture" alt="" />
     <div class="inner-container">
       <div class="title" style="margin-bottom: 2vh">{{ props.data.title }}</div>
       <a :href="props.data.route">
@@ -26,7 +26,10 @@ export default {
     },
   },
   setup(props) {
-    return { props };
+    return {
+      props,
+      defaultPicture,
+    };
   },
 };
 </script>

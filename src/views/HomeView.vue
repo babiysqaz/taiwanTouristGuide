@@ -1,11 +1,20 @@
 <template>
-  <div class="banner-container">
-    <div class="input-conitainer">
-      <img src="@/assets/icon/search.svg" alt="" />
-      <input type="text" placeholder="我想去..." />
-    </div>
-  </div>
+  <div class="banner-container"></div>
   <main>
+    <div class="input-conitainer">
+      <img src="@/assets/icon/select.svg" alt="" />
+      <select
+        style="margin-bottom: 4.625vh"
+        v-model="selectedCity"
+        @change="init(selectedCity)"
+      >
+        <option disabled value="">請選擇</option>
+        <option v-for="city of cityNameArr" :value="city" :key="city">
+          {{ city }}
+        </option>
+      </select>
+    </div>
+
     <section class="activity-container" style="margin-bottom: 12.5vh">
       <div class="img-title">
         <img src="@/assets/image/lantern.png" alt="" />熱門活動
@@ -65,12 +74,38 @@ export default {
     CardSwiper,
   },
   setup() {
+    let cityNameArr = [
+      "臺北市",
+      "新北市",
+      "桃園市",
+      "臺中市",
+      "臺南市",
+      "高雄市",
+      "基隆市",
+      "新竹市",
+      "嘉義市",
+      "宜蘭縣",
+      "新竹縣",
+      "苗栗縣",
+      "彰化縣",
+      "南投縣",
+      "雲林縣",
+      "嘉義縣",
+      "屏東縣",
+      "花蓮縣",
+      "臺東縣",
+      "金門縣",
+      "澎湖縣",
+      "連江縣",
+    ];
     const activity = ref({});
     const scenicSpot = ref({});
     const restaurant = ref({});
+    const selectedCity = ref("");
 
-    async function init() {
-      activity.value = await getActivityByCity();
+    async function init(selectedCity) {
+      console.log(selectedCity);
+      activity.value = await getActivityByCity(selectedCity);
       // console.log("activity", activity.value.data);
       activity.value = activity.value.data
         .map((item) => ({
@@ -84,7 +119,7 @@ export default {
         }))
         .slice(0, 4);
 
-      scenicSpot.value = await getScenicSpotByCity();
+      scenicSpot.value = await getScenicSpotByCity(selectedCity);
       // console.log("scenicSpot", scenicSpot.value.data);
       scenicSpot.value = scenicSpot.value.data
         .map((item) => ({
@@ -95,7 +130,7 @@ export default {
         }))
         .slice(0, 1);
 
-      restaurant.value = await getRestaurantByCity();
+      restaurant.value = await getRestaurantByCity(selectedCity);
       // console.log("restaurant", restaurant.value.data);
       restaurant.value = restaurant.value.data
         .map((item) => ({
@@ -115,6 +150,9 @@ export default {
       activity,
       scenicSpot,
       restaurant,
+      cityNameArr,
+      selectedCity,
+      init,
     };
   },
 };
@@ -130,6 +168,10 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+main {
+  padding: 6.125vh 0 7.75vh;
+  background-color: #f1edea;
   .input-conitainer {
     position: relative;
     img {
@@ -138,7 +180,7 @@ export default {
       top: 12px;
       left: 16px;
     }
-    input {
+    select {
       width: 324px;
       height: 6.875vh;
       padding-left: 53px;
@@ -148,10 +190,6 @@ export default {
       border: none;
     }
   }
-}
-main {
-  padding: 6.125vh 0 7.75vh;
-  background-color: #f1edea;
   .img-title {
     height: 8.169vh;
     margin-bottom: 3vh;
