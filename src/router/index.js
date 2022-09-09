@@ -3,7 +3,7 @@ import HomeView from '@/views/HomeView.vue';
 import TopicView from '@/views/TopicView.vue'
 const routes = [
     {
-        path: "/",
+        path: "/home",
         name: "HomeView",
         component: HomeView,
     },
@@ -11,6 +11,14 @@ const routes = [
         path: "/topic",
         name: "TopicView",
         component: TopicView,
+    },
+    {
+        path: "/taiwanTouristGuide/",
+        redirect: "/home",
+    },
+    {
+        path: "",
+        redirect: "/home",
     },
 ];
 
