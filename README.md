@@ -1,24 +1,3 @@
-# taiwan-tourist-guide
+# The F2E 3rd Week 1 - 台灣旅遊景點導覽
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+設計稿採用自 [UI設計師 Alena](https://2021.thef2e.com/users/6296432819610584034/)
